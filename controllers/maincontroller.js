@@ -114,3 +114,12 @@ export const PostDeleteTour = async (req, res) => {
         return res.json({ message: "Error while deleting tours", error });
     }
 };
+
+export const AddTour = async (req, res) => {
+    try {
+        
+    }
+    catch (error) {
+
+    }
+}

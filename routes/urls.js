@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 import multer from 'multer'
 import jwt from 'jsonwebtoken'
 
-import { GetToursAPI, PostAddTour, PostEditTour, PostDeleteTour } from '../controllers/maincontroller.js';
+import { GetToursAPI, PostAddTour, PostEditTour, PostDeleteTour, AddTour } from '../controllers/maincontroller.js';
 import { GetPassengersAPI, PostPassenger } from '../controllers/passengercontroller.js';
 import { PostLogin, PostRegister } from '../controllers/authcontroller.js';
 import { GetCatNameAPI,AddCategory } from '../controllers/categoriescontroller.js';
@@ -68,6 +68,8 @@ router.post('/register',PostRegister) //use formdata format
 router.get('/getcatname',GetCatNameAPI) // use ?id= to select the category whose name you want
 router.post('/addcategory',upload.single("banner"),AddCategory)
 
+
+router.get('/admin/AddTour',AddTour)
 
 
 
