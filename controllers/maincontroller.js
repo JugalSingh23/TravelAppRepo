@@ -117,7 +117,7 @@ export const PostDeleteTour = async (req, res) => {
 
 export const AddTour = async (req, res) => {
     try {
-        
+        return res.sendFile(path.join(__dirname, '../views', 'addtour.html'));
     }
     catch (error) {
 
