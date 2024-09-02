@@ -2,6 +2,7 @@ import pool from '../database.js'
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import bcrypt from 'bcrypt'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -21,7 +22,8 @@ export const PostLogin = async (req, res) => {
 
     const user = result[0][0];
 
-    if (user.password === req.body.password) {
+    const isMatch = await bcrypt.compare(req.body.password,user.password)
+    if (isMatch) {
 
         console.log('Login success')
         // req.session.user = user;
@@ -35,18 +37,25 @@ export const PostLogin = async (req, res) => {
 }
 
 export const PostRegister = async (req, res) => {
-   
-    const [rows] = await GetUsersFromUsername(req.body.username)
-  
+   try {
 
+  
+    const [rows] = await GetUsersFromUsername(req.body.username)
     if (rows.length > 0) {
         return res.status(404).json({ status: 'fail', message: 'Username taken' });
     }
 
     
-     
-    await InsertUser(req.body.username, req.body.password, req.body.phone, req.body.email)
+    const hash = await bcrypt.hash(req.body.password,13)
+
+
+    await InsertUser(req.body.username, hash, req.body.phone, req.body.email);
     return res.status(202).json({ status: 'success', message: 'User Registerd' });
+}
+catch (error) {
+    return res.json({ message: "Error while registering user", error });
+}
+
 
 
 }
