@@ -2,7 +2,7 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import multer from 'multer'
-
+import jwt from 'jsonwebtoken'
 
 import { GetToursAPI, PostAddTour, PostEditTour, PostDeleteTour } from '../controllers/maincontroller.js';
 import { GetPassengersAPI, PostPassenger } from '../controllers/passengercontroller.js';
@@ -15,6 +15,8 @@ const router = express.Router();
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
 
+
+//multer
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         const imagePath = path.join(__dirname,'../public/images');
@@ -28,8 +30,26 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 
+//jwt middleware
+
+function verifyToken(req, res, next) {
+const token = req.header('Authorization');
+if (!token) return res.status(401).json({ error: 'Access denied' });
+try {
+ const decoded = jwt.verify(token, 'HexaGNTokenSign1294');
+ req.userid = decoded.userId;
+ req.useremail = decoded.useremail;
+ req.userphone = decoded.userphone;
+ next();
+ } catch (error) {
+ res.status(401).json({ error: 'Invalid token' });
+ }
+ };
+
+
+
 // APIs
-router.get('/gettours',GetToursAPI) //use ?category= to get tours a particular category else u will get all tours
+router.get('/gettours',verifyToken,GetToursAPI) //use ?category= to get tours a particular category else u will get all tours
 router.get('/getpassengers',GetPassengersAPI) // use ?tourid= to get passengers of a particular tour. Else entire passenger list will be returned
 router.post('/login',PostLogin) ///use formdata format
 router.post('/register',PostRegister) //use formdata format

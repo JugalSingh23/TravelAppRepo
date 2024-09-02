@@ -3,6 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -26,8 +27,9 @@ export const PostLogin = async (req, res) => {
     if (isMatch) {
 
         console.log('Login success')
-        // req.session.user = user;
-        return res.status(202).json({ status: 'success', message: 'User Authenticated' });
+        const token = jwt.sign({ userid: user.id, useremail : user.email, userphone : user.phone }, 'HexaGNTokenSign1294');
+        
+        return res.status(202).json({ status: 'success', message: 'User Authenticated',token : token });
     }
     else {
         console.log('Incorrect password');
