@@ -41,7 +41,7 @@ export const PostAddTour = async (req, res) => {
             req.body.firstaid,
             req.body.description
         );
-        return res.status(202).json({ status: "success", message: "Tour Added" });
+        return res.status(200).json({ status: "success", message: "Tour Added" });
     } catch (error) {
         return res.json({ message: "Error while adding tour", error });
     }

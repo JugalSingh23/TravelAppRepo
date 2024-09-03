@@ -731,7 +731,7 @@
                   <h5>Create Tour</h5>
                 </div>
                 <div class="card-body">
-                  <form class="theme-form" enctype="multipart/form-data" action="/addtour" method="post">
+                  <form class="theme-form" enctype="multipart/form-data">
                     <div class="row g-3">
 
                       <div class="col-md-3">
@@ -889,18 +889,30 @@
       const endpoint = document.getElementById("endpoint").value
       const departdate = document.getElementById("departdate").value
       const duration = document.getElementById("duration").value
-      const accommodations = document.getElementById("aboutcontent").value
-      const meals = document.getElementById("aboutcontent").value
-      const firstaid = document.getElementById("aboutcontent").value
-      const description = document.getElementById("aboutcontent").value
+      const accommodations = document.getElementById("accommodations").value
+      const meals = document.getElementById("meals").value
+      const firstaid = document.getElementById("firstaid").value
+      const description = document.getElementById("description").value
+
+      bodyFormData.append('tourname', tourname);
+      bodyFormData.append('category', category);
+      bodyFormData.append('startpoint', startpoint);
+      bodyFormData.append('endpoint', endpoint);
+      bodyFormData.append('departdate', departdate);
+      bodyFormData.append('duration', duration);
+      bodyFormData.append('accommodations', accommodations);
+      bodyFormData.append('meals', meals);
+      bodyFormData.append('firstaid', firstaid);
+      bodyFormData.append('description', description);
 
 
-      axios.post('/addtour', {
-        firstName: 'Fred',
-        lastName: 'Flintstone'
-      })
+
+
+      axios.post('/addtour', bodyFormData)
         .then(function (response) {
-          console.log(response);
+          if(response.status === 200) {
+            alert('Request was successful: ' + response.data.message);
+          }
         })
         .catch(function (error) {
           console.log(error);
