@@ -824,7 +824,7 @@
                         </div>
                       </div>
 
-                      <button class="btn btn-primary" type="submit" id="addtour">Create Tour</button>
+                      <button class="btn btn-primary" type="submit" id="addtourbtn">Create Tour</button>
                   </form>
                 </div>
               </div>
@@ -878,7 +878,8 @@
 
 
 
-    let addtoursubmit = document.getElementById("addtour");
+    let addtoursubmit = document.getElementById("addtourbtn");
+
     addtoursubmit.addEventListener("submit", (e) => {
       e.preventDefault();
 
@@ -910,8 +911,12 @@
 
       axios.post('/addtour', bodyFormData)
         .then(function (response) {
+          console.log(response.data)
           if(response.status === 200) {
             alert('Request was successful: ' + response.data.message);
+          }
+          else {
+            alert('FAILED');
           }
         })
         .catch(function (error) {
