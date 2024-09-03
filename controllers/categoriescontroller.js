@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 
-import { GetCatName, InsertCategory } from '../models/categoriesmodel.js'
+import { GetCatName, InsertCategory, GetCategories } from '../models/categoriesmodel.js'
 
 
 export const GetCatNameAPI = async (req, res) => {
@@ -35,5 +35,16 @@ export const AddCategory = async (req, res) => {
         return res.status(202).json({ status: "success", message: "Category Created" });
     } catch (error) {
         return res.json({ message: "Error while adding Category", error });
+    }
+};
+
+export const GetCategoriesAPI = async (req, res) => {
+    try {
+           
+            const [result] = await GetCategories();
+            return res.send(result);
+
+    } catch (error) {
+        return res.json({ message: "Error while fetching categories", error });
     }
 };

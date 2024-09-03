@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken'
 import { GetToursAPI, PostAddTour, PostEditTour, PostDeleteTour, AddTour } from '../controllers/maincontroller.js';
 import { GetPassengersAPI, PostPassenger } from '../controllers/passengercontroller.js';
 import { PostLogin, PostRegister } from '../controllers/authcontroller.js';
-import { GetCatNameAPI,AddCategory } from '../controllers/categoriescontroller.js';
+import { GetCatNameAPI,AddCategory, GetCategoriesAPI } from '../controllers/categoriescontroller.js';
 
 
 const router = express.Router();
@@ -51,7 +51,7 @@ try {
 // APIs
 
 //tour APIs
-router.get('/gettours',verifyToken,GetToursAPI) //use ?category= to get tours a particular category else u will get all tours
+router.get('/gettours',GetToursAPI) //use ?category= to get tours of a particular category else u will get all tours
 router.post('/addtour',upload.single("banner"),PostAddTour) //use form-data format
 router.post('/edittour',upload.single("banner"),PostEditTour) //tested, it works //Both image and no image accepted so image needn't be set to !important //use form-data
 router.post('/deletetour',PostDeleteTour) // use ?id= to delete a tour of a particular id //tested it works
@@ -66,7 +66,8 @@ router.post('/register',PostRegister) //use formdata format
 
 //Category APIs
 router.get('/getcatname',GetCatNameAPI) // use ?id= to select the category whose name you want
-router.post('/addcategory',upload.single("banner"),AddCategory)
+router.post('/addcategory',upload.single("banner"),AddCategory) //use form data
+router.get('/getcategories',GetCategoriesAPI)
 
 
 router.get('/admin/AddTour',AddTour)

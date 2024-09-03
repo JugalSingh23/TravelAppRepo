@@ -27,8 +27,13 @@ app.use(express.urlencoded({ extended : false }))
 // setting up "Public" as static folder
 app.use('/static', express.static(path.join(__dirname, 'public')))
 
+
+
+
 //use /images in the url to acess images
 app.use('/images', express.static(path.join(__dirname, 'public/images')));
+
+
 
 //To let node know, all views are in views folder
 app.set('views', __dirname + '/views');

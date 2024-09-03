@@ -5,6 +5,11 @@ export const GetCatName = async (id) => {
   return result;
 };
 
+export const GetCategories = async (id) => {
+  const result = await pool.query("SELECT * from tourcategories");
+  return result;
+};
+
 export const InsertCategory = async (
   catname,bannerPath,bannerHead
 ) => {

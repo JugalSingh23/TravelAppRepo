@@ -26,6 +26,7 @@ export const GetToursAPI = async (req, res) => {
 export const PostAddTour = async (req, res) => {
     //itenerary not implemented yet
     try {
+        console.log("welcome to add tour")
         const bannerPath = `/images/${req.file.filename}`;
         await InsertTour(
             req.body.tourname,
