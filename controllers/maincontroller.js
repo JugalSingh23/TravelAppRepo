@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 import { DeleteTour, EditTour, GetTours, GetToursWithCat, InsertTour, EditTourNoImage, GetToursWithID } from "../models/mainmodel.js";
-import { GetCatID } from "../models/categoriesmodel.js";
+import { GetCategories, GetCatID } from "../models/categoriesmodel.js";
 
 export const GetToursAPI = async (req, res) => {
     try {
@@ -23,7 +23,19 @@ export const GetToursAPI = async (req, res) => {
             return res.send(result)
         }
         const [result] = await GetTours();
-        // const rows = result[0]
+      
+console.log(result)
+       const [categorylist] = await GetCategories();
+   
+       result.forEach(function (item) {
+        categorylist.forEach(function (cat) {
+            if(item.category == cat.id) {
+                item.categoryname = cat.catname
+            }
+        })
+
+       })
+
         return res.send(result);
     } catch (error) {
         return res.json({ message: "Error while fetching Tours data", error });
@@ -152,7 +164,7 @@ export const AddTourAdmin = async (req, res) => {
 
 export const EditTourAdmin = async (req, res) => {
     try {
-        
+
         return res.sendFile(path.join(__dirname, '../views', 'edittour.html'));
     }
     catch (error) {
@@ -160,11 +172,12 @@ export const EditTourAdmin = async (req, res) => {
     }
 }
 
-export const DeleteTourAdmin = async (req, res) => {
+export const ViewTourAdmin = async (req, res) => {
     try {
-        return res.sendFile(path.join(__dirname, '../views', 'deletetour.html'));
+        return res.sendFile(path.join(__dirname,'../views','viewtours.html'));
     }
-    catch (error) {
+    
+    catch(error) {
 
     }
 }

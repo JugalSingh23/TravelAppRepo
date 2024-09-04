@@ -930,51 +930,23 @@
       });
 
 
-
+//Handling the submit button click
     let addtoursubmit = document.getElementById("tourform");
-
     addtoursubmit.addEventListener("submit", (event) => {
       event.preventDefault();
 
-      console.log("submit button clicked")
-      var bodyFormData = new FormData();
-      const tourname = document.getElementById("tourname").value
-      const category = document.getElementById("category").value
-      const startpoint = document.getElementById("startpoint").value
-      const endpoint = document.getElementById("endpoint").value
-      const departdate = document.getElementById("departdate").value
-      const duration = document.getElementById("duration").value
-      const accommodations = document.getElementById("accommodations").value
-      const meals = document.getElementById("meals").value
-      const firstaid = document.getElementById("firstaid").value
-      const description = document.getElementById("description").value
-
-      bodyFormData.append('id', tourid);
-      bodyFormData.append('tourname', tourname);
-      bodyFormData.append('category', category);
-      bodyFormData.append('startpoint', startpoint);
-      bodyFormData.append('endpoint', endpoint);
-      bodyFormData.append('departdate', departdate);
-      bodyFormData.append('duration', duration);
-      bodyFormData.append('accommodations', accommodations);
-      bodyFormData.append('meals', meals);
-      bodyFormData.append('firstaid', firstaid);
-      bodyFormData.append('description', description);
-      bodyFormData.append('banner', document.getElementById("banner").files[0]);
+    
 
 
 
 
 
-      axios.post('/edittour', bodyFormData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      })
+      axios.post(`/deletetour?id=${tourid}`)
         .then(function (response) {
           console.log(response.data)
           if (response.status === 200) {
             alert('Request was successful: ' + response.data.message);
+            window.location.href = "http://localhost:8080/admin/addtour";
           }
           else {
             alert('FAILED');
@@ -983,6 +955,8 @@
         .catch(function (error) {
           console.log(error);
         });
+
+        
 
     })
 

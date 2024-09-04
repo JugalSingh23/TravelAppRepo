@@ -692,7 +692,7 @@
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                   <li class="breadcrumb-item">Tours </li>
-                  <li class="breadcrumb-item active">Add Tour</li>
+                  <li class="breadcrumb-item active">Edit Tour</li>
                 </ol>
               </div>
               <div class="col-sm-6">
@@ -728,7 +728,7 @@
 
               <div class="card">
                 <div class="card-header pb-0">
-                  <h5>Create Tour</h5>
+                  <h5>Edit Tour</h5>
                 </div>
                 <div class="card-body">
                   <form class="theme-form" id="tourform" enctype="multipart/form-data">
@@ -824,7 +824,8 @@
                         </div>
                       </div>
 
-                      <button class="btn btn-primary" type="submit">Create Tour</button>
+                      <button class="btn btn-primary" type="submit">Edit Tour</button>
+                      
                   </form>
                 </div>
               </div>
@@ -975,6 +976,29 @@
           console.log(response.data)
           if (response.status === 200) {
             alert('Request was successful: ' + response.data.message);
+          }
+          else {
+            alert('FAILED');
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+
+        
+
+    })
+
+    addtoursubmit.addEventListener("delete", (event) => { 
+      event.preventDefault();
+
+      axios.post(`/deletetour?id=${tourid}`)
+        .then(function (response) {
+          console.log(response.data)
+          if (response.status === 200) {
+            alert('Request was successful: ' + response.data.message);
+            window.location.href = "http://localhost:8080/admin/addtour";
           }
           else {
             alert('FAILED');

@@ -58,7 +58,5 @@ catch (error) {
     return res.json({ message: "Error while registering user", error });
 }
 
-
-
 }
 
