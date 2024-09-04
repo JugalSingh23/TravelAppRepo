@@ -5,6 +5,11 @@ export const GetTours = async () => {
   return result;
 };
 
+export const GetToursWithID = async (id) => {
+  const result = await pool.query("SELECT * FROM tours where id=?",[id]);
+  return result;
+};
+
 export const GetToursWithCat = async (cat) => {
   const result = await pool.query("SELECT * FROM tours where category=?", [
     cat,
@@ -41,7 +46,7 @@ export const InsertTour = async (
       description,
     ]
   );
-  return result;
+  return result.query;
 };
 
 export const EditTour = async (
@@ -138,3 +143,5 @@ export const EditTourNoImage = async (
     const result = await pool.query("DELETE FROM tours WHERE id=?",[id]);
     return result;
   };
+
+  

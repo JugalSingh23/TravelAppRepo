@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 import multer from 'multer'
 import jwt from 'jsonwebtoken'
 
-import { GetToursAPI, PostAddTour, PostEditTour, PostDeleteTour, AddTour } from '../controllers/maincontroller.js';
+import { GetToursAPI, PostAddTour, PostEditTour, PostDeleteTour, AddTourAdmin, EditTourAdmin, DeleteTourAdmin } from '../controllers/maincontroller.js';
 import { GetPassengersAPI, PostPassenger } from '../controllers/passengercontroller.js';
 import { PostLogin, PostRegister } from '../controllers/authcontroller.js';
 import { GetCatNameAPI,AddCategory, GetCategoriesAPI } from '../controllers/categoriescontroller.js';
@@ -70,7 +70,10 @@ router.post('/addcategory',upload.single("banner"),AddCategory) //use form data
 router.get('/getcategories',GetCategoriesAPI)
 
 
-router.get('/admin/AddTour',AddTour)
+//Admin Pages
+router.get('/admin/addtour',AddTourAdmin)
+router.get('/admin/edittour/:id',EditTourAdmin)
+router.get('/admin/deletetour/:id',DeleteTourAdmin)
 
 
 

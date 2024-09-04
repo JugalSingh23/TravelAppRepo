@@ -731,12 +731,12 @@
                   <h5>Create Tour</h5>
                 </div>
                 <div class="card-body">
-                  <form class="theme-form" enctype="multipart/form-data">
+                  <form class="theme-form" id="tourform"enctype="multipart/form-data">
                     <div class="row g-3">
 
                       <div class="col-md-3">
                         <label class="form-label" for="validationCustom01">Tour Name</label>
-                        <input class="form-control" id="tourname" name="tourname" type="text" value="Mark" required="">
+                        <input class="form-control" id="tourname" name="tourname" type="text" placeholder="Highlights Of Japan" required="">
                       </div>
 
                       <div class="col-md-3">
@@ -824,19 +824,20 @@
                         </div>
                       </div>
 
-                      <button class="btn btn-primary" type="submit" id="addtourbtn">Create Tour</button>
+                      <button class="btn btn-primary" type="submit">Edit Tour</button>
                   </form>
                 </div>
               </div>
-
-
             </div>
+
+
           </div>
         </div>
       </div>
     </div>
-    <!-- Container-fluid Ends-->
   </div>
+  <!-- Container-fluid Ends-->
+
   <!-- footer start-->
   <footer class="footer">
     <div class="container-fluid">
@@ -878,11 +879,12 @@
 
 
 
-    let addtoursubmit = document.getElementById("addtourbtn");
+    let addtoursubmit = document.getElementById("tourform");
 
-    addtoursubmit.addEventListener("submit", (e) => {
-      e.preventDefault();
+    addtoursubmit.addEventListener("submit", (event) => {
+      event.preventDefault();
 
+      console.log("submit button clicked")
       var bodyFormData = new FormData();
       const tourname = document.getElementById("tourname").value
       const category = document.getElementById("category").value
@@ -905,14 +907,20 @@
       bodyFormData.append('meals', meals);
       bodyFormData.append('firstaid', firstaid);
       bodyFormData.append('description', description);
+      bodyFormData.append('banner', document.getElementById("banner").files[0]);
 
 
 
 
-      axios.post('/addtour', bodyFormData)
+
+      axios.post('/addtour', bodyFormData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
         .then(function (response) {
           console.log(response.data)
-          if(response.status === 200) {
+          if (response.status === 200) {
             alert('Request was successful: ' + response.data.message);
           }
           else {
