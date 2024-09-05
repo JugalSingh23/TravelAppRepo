@@ -22,10 +22,10 @@ export const GetToursAPI = async (req, res) => {
             const [result] = await GetToursWithID(id);
             return res.send(result)
         }
+
+//adding the categoryname field in tours
         const [result] = await GetTours();
-      
-console.log(result)
-       const [categorylist] = await GetCategories();
+        const [categorylist] = await GetCategories();
    
        result.forEach(function (item) {
         categorylist.forEach(function (cat) {

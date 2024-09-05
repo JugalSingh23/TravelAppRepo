@@ -5,7 +5,7 @@ import multer from 'multer'
 import jwt from 'jsonwebtoken'
 
 import { GetToursAPI, PostAddTour, PostEditTour, PostDeleteTour, AddTourAdmin, EditTourAdmin, ViewTourAdmin} from '../controllers/maincontroller.js';
-import { GetPassengersAPI, PostPassenger } from '../controllers/passengercontroller.js';
+import { GetPassengersAPI, PostPassenger,ViewTourPassengersAdmin } from '../controllers/passengercontroller.js';
 import { PostLogin, PostRegister } from '../controllers/authcontroller.js';
 import { GetCatNameAPI,AddCategory, GetCategoriesAPI } from '../controllers/categoriescontroller.js';
 
@@ -71,9 +71,12 @@ router.get('/getcategories',GetCategoriesAPI)
 
 
 //Admin Pages
+router.get('/admin',ViewTourAdmin)
 router.get('/admin/addtour',AddTourAdmin)
 router.get('/admin/edittour/:id',EditTourAdmin)
 router.get('/admin/viewtours',ViewTourAdmin)
+router.get('/admin/viewpassengers',ViewTourPassengersAdmin)
+
 
 
 

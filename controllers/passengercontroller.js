@@ -8,6 +8,8 @@ const __dirname = dirname(__filename);
 
 
 import { InsertPassenger, GetPassengersWithTourID, GetPassengers } from '../models/passengersmodel.js'
+import { GetTours } from '../models/mainmodel.js';
+import { GetCategories } from '../models/categoriesmodel.js';
 
 
 
@@ -20,11 +22,38 @@ export const GetPassengersAPI = async (req, res) => {
         const [result] = await GetPassengersWithTourID(tourid)
         // const rows = result[0]
         return res.send(result)
+
+        
     }
     else{
         
-        const [result] = await GetPassengers()
-        return res.send(result)
+        const [passengers] = await GetPassengers()
+        const [tours] = await GetTours()
+        const [categorylist] = await GetCategories()
+
+      //adding the categoryname field in tours
+        tours.forEach(function (tour) {
+            categorylist.forEach(function (cat) {
+                if(tour.category == cat.id) {
+                    tour.categoryname = cat.catname
+                }
+            })
+    
+           })
+
+         
+
+//adding tourcatname field in passengers
+        passengers.forEach(function (passenger) {
+            tours.forEach(function (tour) {
+                if (passenger.tour_id == tour.category) {
+                    passenger.tourcatname = tour.categoryname
+                    passenger.tourname = tour.tourname
+                }
+               
+            })
+        })
+        return res.send(passengers)
     }
     }
     catch (error) {
@@ -45,4 +74,15 @@ catch (error) {
 }
 
 
+}
+
+
+export const ViewTourPassengersAdmin = async (req, res) => {
+    try {
+        return res.sendFile(path.join(__dirname,'../views','viewpassengers.html'));
+    }
+    
+    catch(error) {
+
+    }
 }
