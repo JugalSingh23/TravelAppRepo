@@ -20,23 +20,38 @@ export const GetToursAPI = async (req, res) => {
 
             const id = req.query.id;
             const [result] = await GetToursWithID(id);
-            return res.send(result)
+            const [categorylist] = await GetCategories();
+
+            result.forEach(function (item) {
+                categorylist.forEach(function (cat) {
+                    if (item.category == cat.id) {
+                        item.categoryname = cat.catname
+                    }
+                })
+
+            })
+
+
+            return res.send(result[0])
         }
+        else {
 
-//adding the categoryname field in tours
-        const [result] = await GetTours();
-        const [categorylist] = await GetCategories();
-   
-       result.forEach(function (item) {
-        categorylist.forEach(function (cat) {
-            if(item.category == cat.id) {
-                item.categoryname = cat.catname
-            }
-        })
 
-       })
+            //adding the categoryname field in tours
+            const [result] = await GetTours();
+            const [categorylist] = await GetCategories();
 
-        return res.send(result);
+            result.forEach(function (item) {
+                categorylist.forEach(function (cat) {
+                    if (item.category == cat.id) {
+                        item.categoryname = cat.catname
+                    }
+                })
+
+            })
+
+            return res.send(result);
+        }
     } catch (error) {
         return res.json({ message: "Error while fetching Tours data", error });
     }
@@ -105,7 +120,7 @@ export const PostEditTour = async (req, res) => {
         }
         if (!req.file) {
             console.log("welcome to no image")
-            
+
             const catname = req.body.category;
             const [result2] = await GetCatID(catname);
             const catid = result2[0].id
@@ -174,10 +189,10 @@ export const EditTourAdmin = async (req, res) => {
 
 export const ViewTourAdmin = async (req, res) => {
     try {
-        return res.sendFile(path.join(__dirname,'../views','viewtours.html'));
+        return res.sendFile(path.join(__dirname, '../views', 'viewtours.html'));
     }
-    
-    catch(error) {
+
+    catch (error) {
 
     }
 }

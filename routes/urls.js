@@ -8,6 +8,7 @@ import { GetToursAPI, PostAddTour, PostEditTour, PostDeleteTour, AddTourAdmin, E
 import { GetPassengersAPI, PostPassenger,ViewTourPassengersAdmin } from '../controllers/passengercontroller.js';
 import { PostLogin, PostRegister } from '../controllers/authcontroller.js';
 import { GetCatNameAPI,AddCategory, GetCategoriesAPI } from '../controllers/categoriescontroller.js';
+import { PaymentAPI } from '../controllers/paymentcontroller.js';
 
 
 const router = express.Router();
@@ -52,6 +53,7 @@ try {
 
 //tour APIs
 router.get('/gettours',GetToursAPI) //use ?category= to get tours of a particular category else u will get all tours
+
 router.post('/addtour',upload.single("banner"),PostAddTour) //use form-data format
 router.post('/edittour',upload.single("banner"),PostEditTour) //tested, it works //Both image and no image accepted so image needn't be set to !important //use form-data
 router.post('/deletetour',PostDeleteTour) // use ?id= to delete a tour of a particular id //tested it works
@@ -76,6 +78,9 @@ router.get('/admin/addtour',AddTourAdmin)
 router.get('/admin/edittour/:id',EditTourAdmin)
 router.get('/admin/viewtours',ViewTourAdmin)
 router.get('/admin/viewpassengers',ViewTourPassengersAdmin)
+
+//payment
+router.get("/payment",PaymentAPI) 
 
 
 
