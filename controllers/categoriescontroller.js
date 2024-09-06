@@ -40,11 +40,21 @@ export const AddCategory = async (req, res) => {
 
 export const GetCategoriesAPI = async (req, res) => {
     try {
-           
-            const [result] = await GetCategories();
-            return res.send(result);
+
+        const [result] = await GetCategories();
+        return res.send(result);
 
     } catch (error) {
         return res.json({ message: "Error while fetching categories", error });
+    }
+};
+
+export const AddCategoryAdmin = async (req, res) => {
+    try {
+        return res.sendFile(path.join(__dirname, '../views', 'addcategory.html'));
+    }
+
+    catch (error) {
+
     }
 };

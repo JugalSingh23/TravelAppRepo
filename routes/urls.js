@@ -7,8 +7,10 @@ import jwt from 'jsonwebtoken'
 import { GetToursAPI, PostAddTour, PostEditTour, PostDeleteTour, AddTourAdmin, EditTourAdmin, ViewTourAdmin} from '../controllers/maincontroller.js';
 import { GetPassengersAPI, PostPassenger,ViewTourPassengersAdmin } from '../controllers/passengercontroller.js';
 import { PostLogin, PostRegister } from '../controllers/authcontroller.js';
-import { GetCatNameAPI,AddCategory, GetCategoriesAPI } from '../controllers/categoriescontroller.js';
+import { GetCatNameAPI,AddCategory, GetCategoriesAPI,AddCategoryAdmin } from '../controllers/categoriescontroller.js';
 import { PaymentAPI } from '../controllers/paymentcontroller.js';
+
+import {AdminLogin,AdminRegister, AdminRegisterPost, AdminLoginPost,AdminPostLogout} from '../controllers/adminauthcontroller.js'
 
 
 const router = express.Router();
@@ -30,12 +32,12 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-
 //jwt middleware
 
 function verifyToken(req, res, next) {
 const token = req.header('Authorization');
 if (!token) return res.status(401).json({ error: 'Access denied' });
+
 try {
  const decoded = jwt.verify(token, 'HexaGNTokenSign1294');
  req.userid = decoded.userId;
@@ -48,6 +50,15 @@ try {
  };
 
 
+ //admin authe
+ export const isAuthenticated = (req, res, next) => {
+  
+    if (req.session.user) { 
+        return next(); 
+    }
+    // If not authenticated, redirect to login page
+    return res.redirect('/admin/login');
+};
 
 // APIs
 
@@ -73,14 +84,24 @@ router.get('/getcategories',GetCategoriesAPI)
 
 
 //Admin Pages
-router.get('/admin',ViewTourAdmin)
+router.get('/admin',isAuthenticated,ViewTourAdmin)
 router.get('/admin/addtour',AddTourAdmin)
 router.get('/admin/edittour/:id',EditTourAdmin)
 router.get('/admin/viewtours',ViewTourAdmin)
 router.get('/admin/viewpassengers',ViewTourPassengersAdmin)
+router.get('/admin/addcategory',AddCategoryAdmin)
+router.post('/admin/RegisterAPI',AdminRegisterPost)
+router.post('/admin/LoginAPI',AdminLoginPost)
+router.get('/admin/logout',AdminPostLogout)
+
 
 //payment
 router.get("/payment",PaymentAPI) 
+router.get("/admin/login",AdminLogin)
+router.get("/admin/Register",AdminRegister)
+
+
+
 
 
 

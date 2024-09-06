@@ -10,6 +10,7 @@ const __dirname = dirname(__filename);
 import { InsertPassenger, GetPassengersWithTourID, GetPassengers } from '../models/passengersmodel.js'
 import { GetTours } from '../models/mainmodel.js';
 import { GetCategories } from '../models/categoriesmodel.js';
+import Razorpay from 'razorpay';
 
 
 
@@ -66,6 +67,24 @@ export const PostPassenger = async (req, res) => {
     try {
 
     const imagePath = `/images/${req.file.filename}`;
+
+    // let {amount} = req.body;
+
+    // var instance = new Razorpay({ key_id: 'rzp_test_cO3N0p6sFSMsTJ', key_secret: 'A4x5WtPTauC71aCZH9Qg75IK'})
+
+    // let order = await instance.orders.create({
+    //     amount : amount * 100,
+    //     currency : "INR",
+    //     receipt: "receipt#1",
+    // })
+
+    // res.status(201).json({
+    //     sucess:true,
+    //     order,
+    //     amount
+    // });
+
+
     await InsertPassenger(req.body.name,req.body.phone,req.body.email, req.body.special_reqs,imagePath,req.body.tourid) 
     return res.status(202).json({ status: 'success', message: 'Passenger Added ' });
 }
