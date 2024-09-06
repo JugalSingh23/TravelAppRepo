@@ -5,6 +5,13 @@ export const GetTours = async () => {
   return result;
 };
 
+export const SearchTours = async (search) => {
+  const result = await pool.query( "SELECT * FROM tours WHERE tourname LIKE ? OR startpoint LIKE ? OR endpoint LIKE ? OR description LIKE ?",
+    [`%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`]);
+
+  return result;
+};
+
 export const GetToursWithID = async (id) => {
   const result = await pool.query("SELECT * FROM tours where id=?",[id]);
   return result;

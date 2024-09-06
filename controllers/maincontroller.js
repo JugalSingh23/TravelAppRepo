@@ -6,7 +6,7 @@ import { dirname } from "path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-import { DeleteTour, EditTour, GetTours, GetToursWithCat, InsertTour, EditTourNoImage, GetToursWithID } from "../models/mainmodel.js";
+import { DeleteTour, EditTour, GetTours, GetToursWithCat, InsertTour, EditTourNoImage, GetToursWithID, SearchTours} from "../models/mainmodel.js";
 import { GetCategories, GetCatID } from "../models/categoriesmodel.js";
 
 export const GetToursAPI = async (req, res) => {
@@ -33,6 +33,25 @@ export const GetToursAPI = async (req, res) => {
 
 
             return res.send(result[0])
+        }
+
+        if(req.query.search) {
+
+            //adding the categoryname field in tours
+            const [result] = await SearchTours(req.query.search);
+            const [categorylist] = await GetCategories();
+
+            result.forEach(function (item) {
+                categorylist.forEach(function (cat) {
+                    if (item.category == cat.id) {
+                        item.categoryname = cat.catname
+                    }
+                })
+
+            })
+
+            return res.send(result);
+
         }
         else {
 
