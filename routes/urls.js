@@ -65,6 +65,8 @@ try {
 //tour APIs
 router.get('/gettours',GetToursAPI) //use ?category= to get tours of a particular category else u will get all tours
 
+
+
 router.post('/addtour',upload.single("banner"),PostAddTour) //use form-data format
 router.post('/edittour',upload.single("banner"),PostEditTour) //tested, it works //Both image and no image accepted so image needn't be set to !important //use form-data
 router.post('/deletetour',PostDeleteTour) // use ?id= to delete a tour of a particular id //tested it works
@@ -85,11 +87,11 @@ router.get('/getcategories',GetCategoriesAPI)
 
 //Admin Pages
 router.get('/admin',isAuthenticated,ViewTourAdmin)
-router.get('/admin/addtour',AddTourAdmin)
-router.get('/admin/edittour/:id',EditTourAdmin)
-router.get('/admin/viewtours',ViewTourAdmin)
-router.get('/admin/viewpassengers',ViewTourPassengersAdmin)
-router.get('/admin/addcategory',AddCategoryAdmin)
+router.get('/admin/addtour',isAuthenticated,AddTourAdmin)
+router.get('/admin/edittour/:id',isAuthenticated,EditTourAdmin)
+router.get('/admin/viewtours',isAuthenticated,ViewTourAdmin)
+router.get('/admin/viewpassengers',isAuthenticated,ViewTourPassengersAdmin)
+router.get('/admin/addcategory',isAuthenticated,AddCategoryAdmin)
 router.post('/admin/RegisterAPI',AdminRegisterPost)
 router.post('/admin/LoginAPI',AdminLoginPost)
 router.get('/admin/logout',AdminPostLogout)
