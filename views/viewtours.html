@@ -25,7 +25,8 @@
     href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
     rel="stylesheet">
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css"
+    rel="stylesheet">
 
   <!-- Font Awesome-->
   <link rel="stylesheet" type="text/css" href="/static/css/fontawesome.css">
@@ -72,23 +73,26 @@
         <div class="left-menu-header col">
           <ul>
             <li>
-              <form class="form-inline search-form">
+
+
+              <form class="form-inline search-form" id="searchform">
                 <div class="search-bg"><i class="bi bi-search"></i>
-                  <input class="form-control-plaintext" placeholder="Search here.....">
+                  <input class="form-control-plaintext" id='searchtext' placeholder="Search here.....">
                 </div>
               </form>
+
             </li>
           </ul>
         </div>
         <div class="nav-right col pull-right right-menu p-0">
           <ul class="nav-menus">
-            
 
 
 
-       
-            
-           
+
+
+
+
             <li class="onhover-dropdown p-0">
               <button class="btn btn-primary-light" type="button"><a href="/admin/logout"><i
                     data-feather="log-out"></i>Log out</a></button>
@@ -103,13 +107,13 @@
     <div class="page-body-wrapper horizontal-menu">
       <!-- Page Sidebar Start-->
       <header class="main-nav">
-      
+
         <nav>
           <div class="main-navbar">
             <div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
             <div id="mainnav">
               <ul class="nav-menu custom-scrollbar">
-                
+
                 <li class="sidebar-main-title">
                   <div>
                     <h6>Admin Panel</h6>
@@ -130,12 +134,12 @@
                 </li>
 
                 <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i
-                  data-feather="airplay"></i><span>Tour Categories</span></a>
-              <ul class="nav-submenu menu-content">
-                <li><a href="/admin/addcategory">Add Category</a></li>
-              </ul>
-            </li>
-                
+                      data-feather="airplay"></i><span>Tour Categories</span></a>
+                  <ul class="nav-submenu menu-content">
+                    <li><a href="/admin/addcategory">Add Category</a></li>
+                  </ul>
+                </li>
+
               </ul>
             </div>
             <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>
@@ -157,7 +161,7 @@
               </div>
               <div class="col-sm-6">
                 <!-- Bookmark Start-->
-               
+
                 <!-- Bookmark Ends-->
               </div>
             </div>
@@ -182,6 +186,7 @@
                         <th scope="col">End Point</th>
                         <th scope="col">Edit</th>
                         <th scope="col">Delete</th>
+                        <th scope="col">Buy</th>
 
 
 
@@ -194,73 +199,336 @@
                   </table>
                 </div>
               </div>
+              <!-- Book TOur Modal Code -->
+              <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalCenter" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Book Tour</h5>
+                      <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                      <form class="theme-form booktourform" enctype="multipart/form-data">
+
+                        <label class="form-label" for="validationCustom01">Name</label>
+                        <input class="form-control" id="paymentname" name="name" type="text" placeholder="John Hoe"
+                          required="">
+
+                        <label class="form-label" for="validationCustom01">Phone</label>
+                        <input class="form-control" id="paymentphone" name="phone" type="text"
+                          placeholder="+91 9283229375" required="">
+
+                        <label class="form-label" for="validationCustom01">Email</label>
+                        <input class="form-control" id="paymentemail" name="email" type="text"
+                          placeholder="johndoe@gmail.com" required="">
+
+                        <div style="width:100%">
+                          <label class="form-label" for="validationCustom04">Special Requests</label>
+                          <textarea class="form-control w-100" id="paymentspecial_reqs" name="special_reqs"
+                            rows="3"></textarea>
+                        </div>
+
+                        <label class="form-label" for="validationCustom04">Id Proof</label>
+                        <input class="form-control" id="idproof" name="idproof" type="file" aria-label="file example">
+
+                        <input type="hidden" name="tourid" id="paymenttourid" value="">
+                        <input type="hidden" name="tourprice" id="paymenttourprice" value="">
+                    </div>
+
+                    <div class="modal-footer">
+                      <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                      <button class="btn btn-primary" type="submit">Book Tour</button>
+                    </div>
+
+                    </form>
+                  </div>
+
+                </div>
+              </div>
             </div>
 
+            <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
 
             <script>
+              let searchform = document.getElementById("searchform");
+
+              searchform.addEventListener("submit", (event) => {
+                event.preventDefault();
+
+                const searchtext = document.getElementById("searchtext").value
+
+                window.location.href = `/admin/viewtours?search=${searchtext}`;
+
+              })
 
               const tourtable = document.querySelector("#tourtable")
 
-              axios.get('/gettours')
-                .then(function (response) {
-                  let tabledata = ''
-                  console.log(response.data)
-                  response.data.forEach(function (item) {
-                    tabledata += `
+              const queryString = window.location.search;
+              const urlParams = new URLSearchParams(queryString);
+              const search = urlParams.get('search')
+
+
+
+
+
+              if (!search) {
+                axios.get('/gettours')
+                  .then(function (response) {
+                    let tabledata = ''
+                    console.log(response.data)
+                    response.data.forEach(function (item) {
+                      tabledata += `
                         <tr>
                         <td>${item.tourname}</td>
-
-
-
                         <td>${item.categoryname}</td>
-
-
-                        
                         <td>${item.departdate}</td>
                         <td>${item.startpoint}</td>
                         <td>${item.endpoint}</td>
                         <td><a class="btn btn-primary" href="/admin/edittour/${item.id}">Edit Tour</a></td>
                         <td><a class="btn btn-danger deletetourbtn" data-id="${item.id}">Delete Tour</a></td>
+
+                        <td> <button class="btn btn-secondary bookbtns" data-tourid="${item.id}" data-tourprice="${item.price}" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">Book Tour</button>
+
+                    </td>
                       
                       </tr>
                       `
 
-                  })
-
-                  tourtable.innerHTML += tabledata;
-
-
-                  const deletebuttons = document.querySelectorAll(".deletetourbtn");
-                  deletebuttons.forEach(function (item) {
-                    item.addEventListener('click', () => {
-                      const tourid = item.getAttribute('data-id');
-                      axios.post(`/deletetour?id=${tourid}`)
-                        .then(function (response) {
-                          console.log(response.data)
-                          alert("Deleted Tour")
-                          location.reload();
-
-                        })
                     })
+
+                    tourtable.innerHTML += tabledata;
+
+
+                    const deletebuttons = document.querySelectorAll(".deletetourbtn");
+                    deletebuttons.forEach(function (item) {
+                      item.addEventListener('click', () => {
+                        const tourid = item.getAttribute('data-id');
+                        axios.post(`/deletetour?id=${tourid}`)
+                          .then(function (response) {
+                            console.log(response.data)
+                            alert("Deleted Tour")
+                            location.reload();
+
+                          })
+                      })
+                    })
+
+
+                    //PASSING TOURID FROM THE BOOK TOUR BUTTON IN THE TOUR VIEWS TO THE HIDDEN INPUT INSIDE THE FORM INSIDE THE MODAL
+                    const bookbtns = document.querySelectorAll(".bookbtns");
+
+                    console.log('this is the length of bookbtns' + bookbtns.length)
+                    bookbtns.forEach((btn) => {
+                      btn.addEventListener("click", (event) => {
+                        console.log("Book Tour Clicked")
+                        const tourid = btn.getAttribute('data-tourid');
+                        document.querySelector('#exampleModalCenter input[name="tourid"]').value = tourid;
+
+                        const price = btn.getAttribute('data-tourprice');
+                        document.querySelector('#exampleModalCenter input[name="tourprice"]').value = price;
+
+
+
+                      });
+                    });
                   })
 
 
+              }
+              else {
+                axios.get(`/gettours?search=${search}`)
+                  .then(function (response) {
+                    let tabledata = ''
+                    console.log(response.data)
+                    response.data.forEach(function (item) {
+                      tabledata += `
+                        <tr>
+                        <td>${item.tourname}</td>
+                        <td>${item.categoryname}</td>
+                        <td>${item.departdate}</td>
+                        <td>${item.startpoint}</td>
+                        <td>${item.endpoint}</td>
+                        <td><a class="btn btn-primary" href="/admin/edittour/${item.id}">Edit Tour</a></td>
+                        <td><a class="btn btn-danger deletetourbtn" data-id="${item.id}">Delete Tour</a></td>
+
+                        <td> <button class="btn btn-secondary bookbtns" data-tourid="${item.id}" data-tourprice="${item.price}" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">Book Tour</button>
+
+                    
+                    </td>
+                      
+                      </tr>
+                      `
+
+                    })
+
+                    tourtable.innerHTML += tabledata;
+
+
+                    const deletebuttons = document.querySelectorAll(".deletetourbtn");
+
+                    deletebuttons.forEach(function (item) {
+                      item.addEventListener('click', () => {
+                        const tourid = item.getAttribute('data-id');
+                        axios.post(`/deletetour?id=${tourid}`)
+                          .then(function (response) {
+                            console.log(response.data)
+                            alert("Deleted Tour")
+                            location.reload();
+
+                          })
+                      })
+                    })
+
+                    //PASSING TOURID FROM THE BOOK TOUR BUTTON IN THE TOUR VIEWS TO THE HIDDEN INPUT INSIDE THE FORM INSIDE THE MODAL
+                    const bookbtns = document.querySelectorAll(".bookbtns");
+
+                    console.log('this is the length of bookbtns' + bookbtns.length)
+                    bookbtns.forEach((btn) => {
+                      btn.addEventListener("click", (event) => {
+                        console.log("Book Tour Clicked")
+                        const tourid = btn.getAttribute('data-tourid');
+                        document.querySelector('#exampleModalCenter input[name="tourid"]').value = tourid;
+
+                        const price = btn.getAttribute('data-tourprice');
+                        document.querySelector('#exampleModalCenter input[name="tourprice"]').value = price;
+
+
+
+                      });
+                    });
+
+                  })
+                  .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                  })
+                  .finally(function () {
+                    // always executed
+                  });
+              }
+
+
+
+
+              const bookTourForms = document.querySelectorAll(".booktourform");
+              bookTourForms.forEach((form) => {
+                form.addEventListener("submit", (event) => {
+
+                  event.preventDefault();
+
+                  const price = document.getElementById("paymenttourprice").value;
+                  const tourid = document.getElementById("paymenttourid").value;
+                  const name = document.getElementById("paymentname").value;
+                  const email = document.getElementById("paymentemail").value;
+                  const phone = document.getElementById("paymentphone").value;
+                  const special_reqs = document.getElementById("paymentspecial_reqs").value
+                  const idproof = document.getElementById("idproof").files[0];
+
+
+                  const formData = new FormData();
+                  formData.append("amount", price);
+                  formData.append("currency", "INR");
+                  formData.append("receipt", "RECEIPT1");
+                  formData.append("tourid", tourid);
+                  formData.append("name", name);
+                  formData.append("email", email);
+                  formData.append("phone", phone);
+                  formData.append("special_reqs", special_reqs);
+                  formData.append("idproof", idproof);
+
+                  // const data = {
+                  //   amount: price,
+                  //   currency: "INR",
+                  //   receipt: "RECEIPT1",
+                  //   tourid: tourid,
+                  //   name: name,
+                  //   email: email,
+                  //   phone: phone,
+                  //   special_reqs: special_reqs
 
 
 
 
 
+
+                  // };
+
+                  axios.post('/payment', formData, {
+                    headers: {
+                      'Content-Type': 'multipart/form-data',
+
+                    }
+                  })
+                    .then((response) => {
+                      if (response.status === 200) {
+
+                        var options = {
+                          "key": response.data.key_id,
+                          "amount": response.data.amount,
+                          "name": response.data.name,
+                          "phone": response.data.phone,
+                          "email": response.data.email,
+                          "special_reqs": response.data.special_reqs,
+                          "idproof": response.data.idproof,
+                          "tour_id": response.data.tourid,
+
+                          "handler": function (response) {
+
+                            alert('Payment successful! Payment ID: ' + response.razorpay_payment_id);
+                            console.log(options)
+
+
+                            const data = {
+                              name: options.name,
+                              phone: options.phone,
+                              email: options.email,
+                              special_reqs: options.special_reqs,
+                              idproof: options.idproof,
+                              tourid: options.tour_id,
+                             
+                            };
+
+                            axios.post('/addpassenger', data, {
+                              headers: {
+                                'Content-Type': 'application/json',
+                              }
+                            })
+                              .then(function (response) {
+                                console.log(response.data)
+                                if (response.status === 200) {
+                                  alert('Request was successful: ' + response.data.message);
+                                }
+                                else {
+                                  alert('FAILED');
+                                }
+                              })
+                              .catch(function (error) {
+                                console.log(error);
+                              });
+
+
+
+
+                          }
+                        };
+                        var rzp = new Razorpay(options);
+                        rzp.open();
+                      } else {
+                        alert('Failed to create the order.' + response.data.message);
+                      }
+
+                    })
+                    .catch((error) => {
+                      console.error('Error creating order:', error);
+                    });
 
 
                 })
-                .catch(function (error) {
-                  // handle error
-                  console.log(error);
-                })
-                .finally(function () {
-                  // always executed
-                });
+              })
+
 
 
 
@@ -280,7 +548,7 @@
             <!-- Plugins JS Ends-->
             <!-- Theme js-->
             <script src="/static/js/script.js"></script>
-         
+
             <!-- login js-->
             <!-- Plugin used-->
 </body>

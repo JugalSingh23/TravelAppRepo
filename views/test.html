@@ -1,0 +1,103 @@
+<div class="row">
+    <div class="col-sm-12">
+
+        <div class="card">
+            <div class="card-header pb-0">
+                <h5>Edit Tour</h5>
+            </div>
+            <div class="card-body">
+                <form class="theme-form" id="tourform" enctype="multipart/form-data">
+
+                    <label class="form-label" for="validationCustom01">Name</label>
+                    <input class="form-control" id="name" name="name" type="text" placeholder="Highlights Of Japan"
+                        required="">
+
+                    <label class="form-label" for="validationCustom01">Phone</label>
+                    <input class="form-control" id="phone" name="phone" type="text" placeholder="+91 9283229375"
+                        required="">
+
+                    <label class="form-label" for="validationCustom01">Email</label>
+                    <input class="form-control" id="email" name="email" type="text" placeholder="johnhoe@gmail.com"
+                        required="">
+
+                    <div style="width:100%">
+                        <label class="form-label" for="validationCustom04">Special Requests</label>
+                        <textarea class="form-control w-100" id="description" name="description" rows="3"></textarea>
+                    </div>
+
+                    <label class="form-label" for="validationCustom04">IdProof</label>
+                    <input class="form-control" id="idproof" name="idproof" type="file" aria-label="file example">
+
+                    <button class="btn btn-primary" type="submit">Edit Tour</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<td> <button class="btn btn-secondary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">Book Tour</button>
+
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenter" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Book Tour</h5>
+            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+
+            <form class="theme-form" class="booktourform" enctype="multipart/form-data">
+
+    <label class="form-label" for="validationCustom01">Name</label>
+    <input class="form-control" id="name" name="name" type="text" placeholder="John Hoe"
+        required="">
+
+    <label class="form-label" for="validationCustom01">Phone</label>
+    <input class="form-control" id="phone" name="phone" type="text" placeholder="+91 9283229375"
+        required="">
+
+    <label class="form-label" for="validationCustom01">Email</label>
+    <input class="form-control" id="email" name="email" type="text" placeholder="johndoe@gmail.com"
+        required="">
+
+    <div style="width:100%">
+        <label class="form-label" for="validationCustom04">Special Requests</label>
+        <textarea class="form-control w-100" id="special_reqs" name="special_reqs" rows="3"></textarea>
+    </div>
+
+    <label class="form-label" for="validationCustom04">Id Proof</label>
+    <input class="form-control" id="idproof" name="idproof" type="file" aria-label="file example">
+
+    <input type="hidden" name="tourid" value="${item.id}">
+
+    <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+            <button class="btn btn-primary" type="submit">Book Tour</button>
+          </div>
+
+          </form>
+          </div>
+          
+        </div>
+      </div>
+    </div></td>

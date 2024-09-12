@@ -54,6 +54,8 @@ export const GetPassengersAPI = async (req, res) => {
                
             })
         })
+
+        
         return res.send(passengers)
     }
     }
@@ -66,7 +68,7 @@ export const GetPassengersAPI = async (req, res) => {
 export const PostPassenger = async (req, res) => {
     try {
 
-    const imagePath = `/images/${req.file.filename}`;
+
 
     // let {amount} = req.body;
 
@@ -85,8 +87,8 @@ export const PostPassenger = async (req, res) => {
     // });
 
 
-    await InsertPassenger(req.body.name,req.body.phone,req.body.email, req.body.special_reqs,imagePath,req.body.tourid) 
-    return res.status(202).json({ status: 'success', message: 'Passenger Added ' });
+    await InsertPassenger(req.body.name,req.body.phone,req.body.email, req.body.special_reqs,req.body.idproof,req.body.tourid) 
+    return res.status(200).json({ status: 'success', message: 'Passenger Added ' });
 }
 catch (error) {
     return res.json({ message: 'Error while adding passenger', error })

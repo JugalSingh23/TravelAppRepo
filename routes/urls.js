@@ -8,7 +8,7 @@ import { GetToursAPI, PostAddTour, PostEditTour, PostDeleteTour, AddTourAdmin, E
 import { GetPassengersAPI, PostPassenger,ViewTourPassengersAdmin } from '../controllers/passengercontroller.js';
 import { PostLogin, PostRegister } from '../controllers/authcontroller.js';
 import { GetCatNameAPI,AddCategory, GetCategoriesAPI,AddCategoryAdmin } from '../controllers/categoriescontroller.js';
-import { PaymentAPI } from '../controllers/paymentcontroller.js';
+import { createorder,RenderProducts } from '../controllers/paymentcontroller.js';
 
 import {AdminLogin,AdminRegister, AdminRegisterPost, AdminLoginPost,AdminPostLogout} from '../controllers/adminauthcontroller.js'
 
@@ -73,7 +73,7 @@ router.post('/deletetour',PostDeleteTour) // use ?id= to delete a tour of a part
 
 //Passenger APIs
 router.get('/getpassengers',GetPassengersAPI) // use ?tourid= to get passengers of a particular tour. Else entire passenger list will be returned
-router.post('/addpassenger',upload.single("idproof"),PostPassenger) //use formdata format
+router.post('/addpassenger',PostPassenger) //use formdata format
 
 //Auth APIs
 router.post('/login',PostLogin) ///use formdata format
@@ -86,21 +86,22 @@ router.get('/getcategories',GetCategoriesAPI)
 
 
 //Admin Pages
-router.get('/admin',isAuthenticated,ViewTourAdmin)
-router.get('/admin/addtour',isAuthenticated,AddTourAdmin)
-router.get('/admin/edittour/:id',isAuthenticated,EditTourAdmin)
-router.get('/admin/viewtours',isAuthenticated,ViewTourAdmin)
-router.get('/admin/viewpassengers',isAuthenticated,ViewTourPassengersAdmin)
-router.get('/admin/addcategory',isAuthenticated,AddCategoryAdmin)
+router.get('/admin',ViewTourAdmin)
+router.get('/admin/addtour',AddTourAdmin)
+router.get('/admin/edittour/:id',EditTourAdmin)
+router.get('/admin/viewtours',ViewTourAdmin)
+router.get('/admin/viewpassengers',ViewTourPassengersAdmin)
+router.get('/admin/addcategory',AddCategoryAdmin)
 router.post('/admin/RegisterAPI',AdminRegisterPost)
 router.post('/admin/LoginAPI',AdminLoginPost)
 router.get('/admin/logout',AdminPostLogout)
-
-
-//payment
-router.get("/payment",PaymentAPI) 
 router.get("/admin/login",AdminLogin)
 router.get("/admin/Register",AdminRegister)
+
+//payment
+router.get("/products",RenderProducts) 
+router.post("/payment",upload.single("idproof"),createorder) 
+
 
 
 

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form id="buyform">
+        <button type="submit">Click to Buy Shoes Worth 1500 INR</button>
+    </form>
+</body>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+<script>
+
+    const buyform = document.getElementById("buyform")
+
+    buyform.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const data = {
+            amount: "150000",
+            currency: "INR",
+            receipt: "RECEIPT1"
+            
+            
+        };
+
+   
+
+        axios.post('/payment', data, {
+            headers: {
+                'Content-Type': 'application/json',
+
+            }
+        })
+            .then((response) => {
+                if (response.status === 200) {
+                    
+                    var options = {
+                        "amount": response.data.amount,
+                        "currency": response.data.currency,
+                        "description": response.data.product_description,
+                        "image": "/public/images/japan.png", 
+                        "order_id": response.data.order_id, 
+                        "handler": function (response) {
+                            
+                            alert('Payment successful! Payment ID: ' + response.razorpay_payment_id);
+                        }
+                    };
+                    var rzp = new Razorpay(options);
+                    rzp.open();
+                } else {
+                    alert('Failed to create the order.'+response.data.message);
+                }
+
+            })
+            .catch((error) => {
+                console.error('Error creating order:', error);
+            });
+
+    })
+</script>
+
+</html>

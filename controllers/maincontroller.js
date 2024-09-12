@@ -159,7 +159,7 @@ export const PostEditTour = async (req, res) => {
             );
             return res
                 .status(200)
-                .json({ status: "success", message: "Tour Added " });
+                .json({ status: "success", message: "Tour Edited " });
         }
 
 

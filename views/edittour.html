@@ -149,7 +149,7 @@
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                   <li class="breadcrumb-item">Tours </li>
-                  <li class="breadcrumb-item active">Add Tour</li>
+                  <li class="breadcrumb-item active">Edit Tour</li>
                 </ol>
               </div>
               <div class="col-sm-6">
@@ -249,7 +249,7 @@
 
                         <div class="col-md-6">
                           <div style="width:100%">
-                            <label class="form-label" for="validationCustom04">Description/label>
+                            <label class="form-label" for="validationCustom04">Description</label>
                               <textarea class="form-control w-100" id="description" name="description"
                                 rows="3"></textarea>
                           </div>
@@ -302,7 +302,7 @@
 
     const GetTourCategoryID = async () => {
       const response = await axios.get(`/gettours?id=${tourid}`);
-      const tourcategoryid = `${response.data[0].category}`;
+      const tourcategoryid = `${response.data.category}`;
       return tourcategoryid;
     }
 
@@ -348,17 +348,17 @@
     axios.get(`/gettours?id=${tourid}`)
       .then(function (response) {
 
-
-        document.getElementById("tourname").value = `${response.data[0].tourname}`
-        document.getElementById("category").value = `${response.data[0].category}`
-        document.getElementById("startpoint").value = `${response.data[0].startpoint}`
-        document.getElementById("endpoint").value = `${response.data[0].endpoint}`
-        document.getElementById("departdate").value = `${response.data[0].departdate}`
-        document.getElementById("duration").value = `${response.data[0].duration}`
-        document.getElementById("accommodations").value = `${response.data[0].accommodations}`
-        document.getElementById("meals").value = `${response.data[0].meals}`
-        document.getElementById("firstaid").value = `${response.data[0].firstaid}`
-        document.getElementById("description").value = `${response.data[0].description}`
+console.log(response.data)
+        document.getElementById("tourname").value = `${response.data.tourname}`
+        document.getElementById("category").value = `${response.data.category}`
+        document.getElementById("startpoint").value = `${response.data.startpoint}`
+        document.getElementById("endpoint").value = `${response.data.endpoint}`
+        document.getElementById("departdate").value = `${response.data.departdate}`
+        document.getElementById("duration").value = `${response.data.duration}`
+        document.getElementById("accommodations").value = `${response.data.accommodations}`
+        document.getElementById("meals").value = `${response.data.meals}`
+        document.getElementById("firstaid").value = `${response.data.firstaid}`
+        document.getElementById("description").value = `${response.data.description}`
 
       })
       .catch(function (error) {

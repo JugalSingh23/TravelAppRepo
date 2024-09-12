@@ -79,6 +79,7 @@ export const AdminLoginPost = async (req, res) => {
 
         console.log('Login success')
         req.session.user = user;
+        req.session.save;
         return res.status(202).json({ status: 'success', message: 'Login Successful' });
     }
     else {
