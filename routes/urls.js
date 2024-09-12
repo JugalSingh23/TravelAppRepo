@@ -11,6 +11,9 @@ import { GetCatNameAPI,AddCategory, GetCategoriesAPI,AddCategoryAdmin } from '..
 import { createorder,RenderProducts, GetThankYou, GetPaymentDetailsAPI, addtransactionapi,GetTransactionsAPI } from '../controllers/paymentcontroller.js';
 
 import {AdminLogin,AdminRegister, AdminRegisterPost, AdminLoginPost,AdminPostLogout} from '../controllers/adminauthcontroller.js'
+import { GetItineraryAPI } from '../controllers/itinerarycontroller.js';
+
+
 
 
 const router = express.Router();
@@ -109,6 +112,9 @@ router.post("/addtransaction",addtransactionapi)
 
 //transactions 
 router.get('/gettransactions',GetTransactionsAPI)
+
+//itinerary
+router.get('/getitinerary/:tourid',GetItineraryAPI)
 
 
 

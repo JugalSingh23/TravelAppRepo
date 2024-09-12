@@ -180,6 +180,19 @@
               <div class="card">
                 <div class="card-header">
                   <h5>Tour List</h5>
+                  
+                  <div id="mySmallModal" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog"
+              aria-labelledby="mySmallModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title" id="mySmallModalLabel">Small modal</h4>
+                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">DO NOT close this page, you are being redirected</div>
+                </div>
+              </div>
+            </div>
                 </div>
                 <div class="table-responsive">
                   <table class="table" id="tourtable">
@@ -255,6 +268,11 @@
                 </div>
               </div>
             </div>
+
+
+
+
+            
 
             <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
@@ -397,6 +415,7 @@
                     console.log('this is the length of bookbtns' + bookbtns.length)
                     bookbtns.forEach((btn) => {
                       btn.addEventListener("click", (event) => {
+
                         console.log("Book Tour Clicked")
                         const tourid = btn.getAttribute('data-tourid');
                         document.querySelector('#exampleModalCenter input[name="tourid"]').value = tourid;
@@ -487,6 +506,8 @@
                     .then((response) => {
                       if (response.status === 200) {
 
+
+
                         var options = {
                           "key": response.data.key_id,
                           "amount": response.data.amount,
@@ -498,6 +519,14 @@
                           "tour_id": response.data.tourid,
 
                           "handler": async function (response) {
+
+
+                            var myModal = new bootstrap.Modal(document.getElementById('mySmallModal'));
+                            myModal.show();
+
+
+
+
 
                             console.log('Payment successful! Payment ID: ' + response.razorpay_payment_id);
                             console.log(options)
@@ -540,6 +569,7 @@
 
                             if (transactionResponse.status === 200) {
                               console.log('Transaction added successfully:', transactionResponse.data);
+                              window.location.href = `/admin/thankyou`;
 
                             }
 
