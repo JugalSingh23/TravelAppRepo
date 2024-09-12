@@ -5,10 +5,10 @@ import multer from 'multer'
 import jwt from 'jsonwebtoken'
 
 import { GetToursAPI, PostAddTour, PostEditTour, PostDeleteTour, AddTourAdmin, EditTourAdmin, ViewTourAdmin} from '../controllers/maincontroller.js';
-import { GetPassengersAPI, PostPassenger,ViewTourPassengersAdmin } from '../controllers/passengercontroller.js';
+import { GetPassengersAPI, PostPassenger,ViewTourPassengersAdmin,ViewTransactionsAdmin } from '../controllers/passengercontroller.js';
 import { PostLogin, PostRegister } from '../controllers/authcontroller.js';
 import { GetCatNameAPI,AddCategory, GetCategoriesAPI,AddCategoryAdmin } from '../controllers/categoriescontroller.js';
-import { createorder,RenderProducts } from '../controllers/paymentcontroller.js';
+import { createorder,RenderProducts, GetThankYou, GetPaymentDetailsAPI, addtransactionapi,GetTransactionsAPI } from '../controllers/paymentcontroller.js';
 
 import {AdminLogin,AdminRegister, AdminRegisterPost, AdminLoginPost,AdminPostLogout} from '../controllers/adminauthcontroller.js'
 
@@ -97,10 +97,18 @@ router.post('/admin/LoginAPI',AdminLoginPost)
 router.get('/admin/logout',AdminPostLogout)
 router.get("/admin/login",AdminLogin)
 router.get("/admin/Register",AdminRegister)
+router.get("/admin/thankyou",GetThankYou)
+router.get("/admin/viewtransactions",ViewTransactionsAdmin)
+router.get("/getpaymentdetails/:payment_id",GetPaymentDetailsAPI)
 
 //payment
 router.get("/products",RenderProducts) 
 router.post("/payment",upload.single("idproof"),createorder) 
+
+router.post("/addtransaction",addtransactionapi)
+
+//transactions 
+router.get('/gettransactions',GetTransactionsAPI)
 
 
 

@@ -43,11 +43,11 @@ export const GetPassengersAPI = async (req, res) => {
            })
 
          
-
+console.log(tours)
 //adding tourcatname field in passengers
         passengers.forEach(function (passenger) {
             tours.forEach(function (tour) {
-                if (passenger.tour_id == tour.category) {
+                if (passenger.tour_id == tour.id) {
                     passenger.tourcatname = tour.categoryname
                     passenger.tourname = tour.tourname
                 }
@@ -55,7 +55,7 @@ export const GetPassengersAPI = async (req, res) => {
             })
         })
 
-        
+
         return res.send(passengers)
     }
     }
@@ -87,8 +87,9 @@ export const PostPassenger = async (req, res) => {
     // });
 
 
-    await InsertPassenger(req.body.name,req.body.phone,req.body.email, req.body.special_reqs,req.body.idproof,req.body.tourid) 
-    return res.status(200).json({ status: 'success', message: 'Passenger Added ' });
+    const result = await InsertPassenger(req.body.name,req.body.phone,req.body.email, req.body.special_reqs,req.body.idproof,req.body.tourid) 
+   console.log(result)
+    return res.status(200).send(result)
 }
 catch (error) {
     return res.json({ message: 'Error while adding passenger', error })
@@ -101,6 +102,16 @@ catch (error) {
 export const ViewTourPassengersAdmin = async (req, res) => {
     try {
         return res.sendFile(path.join(__dirname,'../views','viewpassengers.html'));
+    }
+    
+    catch(error) {
+
+    }
+}
+
+export const ViewTransactionsAdmin = async (req, res) => {
+    try {
+        return res.sendFile(path.join(__dirname,'../views','viewtransactions.html'));
     }
     
     catch(error) {

@@ -140,6 +140,12 @@
                   </ul>
                 </li>
 
+                <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i
+                      data-feather="airplay"></i><span>Transactions</span></a>
+                  <ul class="nav-submenu menu-content">
+                    <li><a href="/admin/viewtransactions">View Transactions</a></li>
+                  </ul>
+                </li>
               </ul>
             </div>
             <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>
@@ -156,7 +162,7 @@
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="/admin">Home</a></li>
                   <li class="breadcrumb-item">Tours </li>
-                  <li class="breadcrumb-item active">View Tour</li>
+                  <li class="breadcrumb-item active">View Tours</li>
                 </ol>
               </div>
               <div class="col-sm-6">
@@ -217,11 +223,11 @@
                           required="">
 
                         <label class="form-label" for="validationCustom01">Phone</label>
-                        <input class="form-control" id="paymentphone" name="phone" type="text"
-                          placeholder="+91 9283229375" required="">
+                        <input class="form-control" type="tel" minlength="10" maxlength="15" id="paymentphone"
+                          name="phone" placeholder="+91 9283229375" required="">
 
                         <label class="form-label" for="validationCustom01">Email</label>
-                        <input class="form-control" id="paymentemail" name="email" type="text"
+                        <input class="form-control" id="paymentemail" name="email" type="email"
                           placeholder="johndoe@gmail.com" required="">
 
                         <div style="width:100%">
@@ -231,7 +237,8 @@
                         </div>
 
                         <label class="form-label" for="validationCustom04">Id Proof</label>
-                        <input class="form-control" id="idproof" name="idproof" type="file" aria-label="file example">
+                        <input class="form-control" id="idproof" name="idproof" type="file" aria-label="file example"
+                          required>
 
                         <input type="hidden" name="tourid" id="paymenttourid" value="">
                         <input type="hidden" name="tourprice" id="paymenttourprice" value="">
@@ -257,6 +264,8 @@
 
               searchform.addEventListener("submit", (event) => {
                 event.preventDefault();
+
+
 
                 const searchtext = document.getElementById("searchtext").value
 
@@ -419,6 +428,19 @@
 
                   event.preventDefault();
 
+                  // Close the modal after successful submission
+                  const modalElement = document.getElementById("exampleModalCenter");
+
+                  // Hide the modal using Bootstrap's modal instance
+                  const modalInstance = bootstrap.Modal.getInstance(modalElement);
+                  if (!modalInstance) {
+                    // If no instance exists, create a new one
+                    const newModalInstance = new bootstrap.Modal(modalElement);
+                    newModalInstance.hide();
+                  } else {
+                    modalInstance.hide();
+                  }
+
                   const price = document.getElementById("paymenttourprice").value;
                   const tourid = document.getElementById("paymenttourid").value;
                   const name = document.getElementById("paymentname").value;
@@ -475,39 +497,64 @@
                           "idproof": response.data.idproof,
                           "tour_id": response.data.tourid,
 
-                          "handler": function (response) {
+                          "handler": async function (response) {
 
-                            alert('Payment successful! Payment ID: ' + response.razorpay_payment_id);
+                            console.log('Payment successful! Payment ID: ' + response.razorpay_payment_id);
                             console.log(options)
 
 
-                            const data = {
+                            const passengerdata = {
                               name: options.name,
                               phone: options.phone,
                               email: options.email,
                               special_reqs: options.special_reqs,
                               idproof: options.idproof,
                               tourid: options.tour_id,
-                             
+
                             };
 
-                            axios.post('/addpassenger', data, {
+                            // add passenger and get back the passengerid
+                            const passengerResponse = await axios.post('/addpassenger', passengerdata, {
                               headers: {
                                 'Content-Type': 'application/json',
                               }
                             })
-                              .then(function (response) {
-                                console.log(response.data)
-                                if (response.status === 200) {
-                                  alert('Request was successful: ' + response.data.message);
-                                }
-                                else {
-                                  alert('FAILED');
-                                }
-                              })
-                              .catch(function (error) {
-                                console.log(error);
-                              });
+
+                            const passengerId = passengerResponse.data.passengerId;
+                            const paymentDetailsResponse = await axios.get(`http://localhost:8080/getpaymentdetails/${response.razorpay_payment_id}`);
+
+
+                            // Add transaction
+                            const transactionData = {
+                              payment_id: response.razorpay_payment_id,
+                              payment_method: paymentDetailsResponse.data.method,
+                              amount: paymentDetailsResponse.data.amount,
+                              passenger_id: passengerId,
+                            };
+
+                            const transactionResponse = await axios.post('/addtransaction', transactionData, {
+                              headers: { 'Content-Type': 'application/json' },
+                            });
+
+
+
+                            if (transactionResponse.status === 200) {
+                              console.log('Transaction added successfully:', transactionResponse.data);
+
+                            }
+
+                            else {
+                              throw new Error('Failed to add transaction. Please Contact Admin');
+                            }
+
+
+
+
+
+
+
+
+
 
 
 
