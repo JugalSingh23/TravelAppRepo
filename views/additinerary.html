@@ -260,7 +260,7 @@
 
         let tourlist = ''
         response.data.forEach(function (item) {
-          tourlist += `<option>${item.tourname}</option>`
+          tourlist += `<option value="${item.id}">${item.tourname}</option>`;
         })
 
         // handle success
@@ -296,7 +296,7 @@
         "daynumber":day_number,
         "heading":heading,
         "content":content,
-        "tour":tour
+        "tour_Id":tour
       }
    
             
