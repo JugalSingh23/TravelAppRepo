@@ -140,6 +140,7 @@ registersubmit.addEventListener("submit", (event) => {
       console.log(response.data)
       if (response.status === 202) {
         alert('Request was successful: ' + response.data.message);
+        window.location.href="/admin/login"
       }
       else {
         alert('FAILED'+response.data.message);

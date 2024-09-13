@@ -10,12 +10,34 @@ export const GetPassengersWithTourID = async (tourid) => {
     return result
 }
 
+export const GetPassengersWithID = async (id) => {
+    const result = await pool.query("SELECT * FROM passengers WHERE passid=?",[id])
+    return result
+}
+
+
+
 
 export const InsertPassenger = async (name,phone,email,special_reqs,imagepath,tourid) => {
     const [result] = await pool.query("INSERT INTO passengers (name, phone, email, special_reqs,idproof,tour_id) VALUES (?, ?, ?, ?, ?, ?)",[name,phone,email,special_reqs,imagepath,tourid])
 
   
       return { passengerId: result.insertId, message: "Passenger added successfully" };
+}
+
+export const EditPassenger = async (passid,name,phone,email,special_reqs,imagepath,tourid) => {
+    const [result] = await pool.query("UPDATE passengers set name = ?, phone = ?,email = ?, special_reqs = ?,idproof=?,tour_id = ? WHERE passid=?",[name,phone,email,special_reqs,imagepath,tourid,passid])
+
+  
+      return { result: result, message: "Passenger Edited successfully" };
+}
+
+
+export const EditPassengerNoImage = async (passid,name,phone,email,special_reqs,tourid) => {
+    const [result] = await pool.query("UPDATE passengers set name = ?, phone = ?,email = ?, special_reqs = ?,tour_id = ? WHERE passid=?",[name,phone,email,special_reqs,tourid,passid])
+
+  
+      return { result: result, message: "Passenger Edited successfully" };
 }
 
 

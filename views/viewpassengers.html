@@ -181,11 +181,14 @@
                   <table class="table" id="tourtable">
                     <thead>
                       <tr>
+
+                        <th scope="col">ID</th>
                         <th scope="col">Name</th>
                         <th scope="col">Phone</th>
                         <th scope="col">Email</th>
                         <th scope="col">Tour Name</th>
                         <th scope="col">Tour Category</th>
+                        <th scope="col">Edit</th>
                        
 
 
@@ -207,18 +210,24 @@
 
               const tourtable = document.querySelector("#tourtable")
 
+              
+
               axios.get('/getpassengers')
                 .then(function (response) {
+
                   let tabledata = ''
                   console.log(response.data)
                   response.data.forEach(function (item) {
+                    
                     tabledata += `
                         <tr>
+                          <td>${item.passid}</td>
                         <td>${item.name}</td>
                         <td>${item.phone}</td>
                         <td>${item.email}</td>
                         <td>${item.tourname}</td>
                         <td>${item.tourcatname}</td>
+                        <td><a class="btn btn-secondary" href="/admin/editpassenger/${item.passid}">Edit Passenger</a></td>
                       
                       </tr>
                       `

@@ -8,9 +8,12 @@ const __dirname = dirname(__filename);
 
 import { DeleteTour, EditTour, GetTours, GetToursWithCat, InsertTour, EditTourNoImage, GetToursWithID, SearchTours} from "../models/mainmodel.js";
 import { GetCategories, GetCatID } from "../models/categoriesmodel.js";
+import { GetItineraries, GetItinerary } from "../models/itinerarymodel.js";
 
 export const GetToursAPI = async (req, res) => {
     try {
+
+        //this first if condition is absolete as i have added category field a few lines below
         if (req.query.category) {
             const cat = req.query.category;
             const [result] = await GetToursWithCat(cat);
@@ -69,9 +72,26 @@ export const GetToursAPI = async (req, res) => {
 
             })
 
+            const[itineraries] = await GetItineraries()
+            
+            itineraries.forEach(function (itinerary) {
+                result.forEach(function(tour) {
+
+                    if (!tour.itineraries) {
+                        tour.itineraries = [];
+                    }
+                    
+                    if (tour.id == itinerary.tour_Id)
+                    {
+                        tour.itineraries.push(itinerary);
+                    }
+                })
+            })
+
             return res.send(result);
         }
     } catch (error) {
+        console.log(error)
         return res.json({ message: "Error while fetching Tours data", error });
     }
 };

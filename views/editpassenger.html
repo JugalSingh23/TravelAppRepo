@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="viho admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+  <meta name="keywords"
+    content="admin template, viho admin template, dashboard template, flat admin template, responsive admin template, web app">
+  <meta name="author" content="pixelstrap">
+  <link rel="icon" href="/static/images/favicon.png" type="image/x-icon">
+  <link rel="shortcut icon" href="/static/images/favicon.png" type="image/x-icon">
+  <title>viho - Premium Admin Template</title>
+  <!-- Google font-->
+  <link rel="preconnect" href="https://fonts.g/static.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+    rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+    rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+    rel="stylesheet">
+  <!-- Font Awesome-->
+  <link rel="stylesheet" type="text/css" href="/static/css/fontawesome.css">
+  <!-- ico-font-->
+  <link rel="stylesheet" type="text/css" href="/static/css/icofont.css">
+  <!-- Themify icon-->
+  <link rel="stylesheet" type="text/css" href="/static/css/themify.css">
+  <!-- Flag icon-->
+  <link rel="stylesheet" type="text/css" href="/static/css/flag-icon.css">
+  <!-- Feather icon-->
+  <link rel="stylesheet" type="text/css" href="/static/css/feather-icon.css">
+  <!-- Plugins css start-->
+  <!-- Plugins css Ends-->
+  <!-- Bootstrap css-->
+  <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
+  <!-- App css-->
+  <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+  <link id="color" rel="stylesheet" href="/static/css/color-1.css" media="screen">
+  <!-- Responsive css-->
+  <link rel="stylesheet" type="text/css" href="/static/css/responsive.css">
+</head>
+
+<body>
+  <!-- Loader starts-->
+  <div class="loader-wrapper">
+    <div class="theme-loader">
+      <div class="loader-p"></div>
+    </div>
+  </div>
+  <!-- Loader ends-->
+  <!-- page-wrapper Start-->
+  <div class="page-wrapper" id="pageWrapper">
+    <!-- Page Header Start-->
+    <div class="page-main-header">
+      <div class="main-header-right row m-0">
+        <div class="main-header-left">
+          <div class="logo-wrapper"><a href="index.html"><img class="img-fluid" src="/static/images/logo/logo.png"
+                alt=""></a></div>
+          <div class="dark-logo-wrapper"><a href="index.html"><img class="img-fluid"
+                src="/static/images/logo/dark-logo.png" alt=""></a></div>
+          <div class="toggle-sidebar"><i class="status_toggle middle" data-feather="align-center"
+              id="sidebar-toggle"></i></div>
+        </div>
+        <div class="left-menu-header col">
+          <ul>
+            <li>
+              <form class="form-inline search-form">
+                <div class="search-bg"><i class="fa fa-search"></i>
+                  <input class="form-control-plaintext" placeholder="Search here.....">
+                </div>
+              </form>
+            </li>
+          </ul>
+        </div>
+        <div class="nav-right col pull-right right-menu p-0">
+          <ul class="nav-menus">
+            
+
+
+
+       
+            
+           
+            <li class="onhover-dropdown p-0">
+              <button class="btn btn-primary-light" type="button"><a href="/admin/logout"><i
+                    data-feather="log-out"></i>Log out</a></button>
+            </li>
+          </ul>
+        </div>
+        <div class="d-lg-none mobile-toggle pull-right w-auto"><i data-feather="more-horizontal"></i></div>
+      </div>
+    </div>
+    <!-- Page Header Ends                              -->
+    <!-- Page Body Start-->
+    <div class="page-body-wrapper horizontal-menu">
+      <!-- Page Sidebar Start-->
+      <header class="main-nav">
+      
+        <nav>
+          <div class="main-navbar">
+            <div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
+            <div id="mainnav">
+              <ul class="nav-menu custom-scrollbar">
+                
+                <li class="sidebar-main-title">
+                  <div>
+                    <h6>Admin Panel</h6>
+                  </div>
+                </li>
+                <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i
+                      data-feather="home"></i><span>Tours</span></a>
+                  <ul class="nav-submenu menu-content">
+                    <li><a href="/admin/viewtours">View Tours</a></li>
+                    <li><a href="/admin/addtour">Create Tour</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i
+                      data-feather="airplay"></i><span>Passengers</span></a>
+                  <ul class="nav-submenu menu-content">
+                    <li><a href="/admin/viewpassengers">View Passengers</a></li>
+                  </ul>
+                </li>
+
+                <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i
+                  data-feather="airplay"></i><span>Tour Categories</span></a>
+              <ul class="nav-submenu menu-content">
+                <li><a href="/admin/addcategory">Add Category</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i
+              data-feather="airplay"></i><span>Transactions</span></a>
+          <ul class="nav-submenu menu-content">
+            <li><a href="/admin/viewtransactions">View Transactions</a></li>
+          </ul>
+        </li>
+                
+              </ul>
+            </div>
+            <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>
+          </div>
+        </nav>
+      </header>
+      <!-- Page Sidebar Ends-->
+      <div class="page-body">
+        <div class="container-fluid">
+          <div class="page-header">
+            <div class="row">
+              <div class="col-sm-6">
+                <h3>Passengers</h3>
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                  <li class="breadcrumb-item">Passengers </li>
+                  <li class="breadcrumb-item active">Edit Passengers</li>
+                </ol>
+              </div>
+              <div class="col-sm-6">
+                <!-- Bookmark Start-->
+               
+                <!-- Bookmark Ends-->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Container-fluid starts-->
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-12">
+
+              <div class="card">
+                <div class="card-header pb-0">
+                  <h5>Edit Tour</h5>
+                </div>
+                <div class="card-body">
+                  <form class="theme-form" id="tourform" enctype="multipart/form-data">
+                    <div class="row g-3">
+
+                      <div class="col-md-3">
+                        <label class="form-label" for="validationCustom01">Name</label>
+                        <input class="form-control" id="name" name="name" type="text"
+                          placeholder="Highlights Of Japan" required="">
+                      </div>
+
+                      <div class="col-md-3">
+                        <label class="form-label" for="validationCustom04">Phone</label>
+                        <input class="form-control" id="phone" name="phone" type="text"
+                          placeholder="Highlights Of Japan" required="">
+                      </div>
+
+                      <div class="col-md-3 mb-3">
+                        <label class="form-label" for="validationCustomUsername">Email</label>
+                        <div class="input-group"><span class="" id="inputGroupPrepend"></span>
+                          <input class="form-control" id="email" name="email" type="text" placeholder="Tokyo"
+                            aria-describedby="inputGroupPrepend" required="">
+                        </div>
+                      </div>
+
+                      <div class="col-md-3 mb-3">
+                        <label class="form-label" for="validationCustomUsername">Special Requests</label>
+                        <div class="input-group"><span class="" id="inputGroupPrepend"></span>
+                          <input class="form-control" id="specialreqs" name="specialreqs" type="text" placeholder="Kyoto"
+                            aria-describedby="inputGroupPrepend" required="">
+                        </div>
+                      </div>
+
+                    </div>
+
+
+                 
+
+
+                      <div class="row g-2">
+
+                        <div class="col-md-3">
+                     
+                          <label class="form-label" for="validationCustom01">Tour ID</label>
+                          <input class="form-control" id="tourid" name="tourid" type="text"
+                            placeholder="34" required="">
+                        </div>
+
+                        
+
+                      
+
+                        <div class="col-md-3 mb-3">
+                          <label class="form-label" for="validationCustom04">Id Proof</label>
+                          <input class="form-control" id="idproof" name="idproof" type="file" aria-label="file example"
+                            >
+                        </div>
+                      </div>
+
+                      <button class="btn btn-primary" type="submit">Edit Tour</button>
+                      
+                  </form>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Container-fluid Ends-->
+
+  <!-- footer start-->
+  <footer class="footer">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6 footer-copyright">
+          <p class="mb-0">Copyright 2021-22 © viho All rights reserved.</p>
+        </div>
+        <div class="col-md-6">
+          <p class="pull-right mb-0">Hand crafted & made with <i class="fa fa-heart font-secondary"></i></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+  <script>
+    const queryString = window.location.href;
+    const idd = queryString.split('editpassenger/')
+    const passid = idd[1]
+
+    //render out all the tour's data in the form 
+    axios.get(`/getpassengers?id=${passid}`)
+      .then(function (response) {
+
+console.log(response.data)
+        document.getElementById("name").value = `${response.data[0].name}`
+        document.getElementById("phone").value = `${response.data[0].phone}`
+        document.getElementById("email").value = `${response.data[0].email}`
+        document.getElementById("specialreqs").value = `${response.data[0].special_reqs}`
+        document.getElementById("tourid").value = `${response.data[0].tour_id}`
+
+      
+
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .finally(function () {
+        // always executed
+      });
+
+
+
+    let addtoursubmit = document.getElementById("tourform");
+
+    addtoursubmit.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      console.log("submit button clicked")
+      var bodyFormData = new FormData();
+
+      const name = document.getElementById("name").value
+      const phone = document.getElementById("phone").value
+      const email = document.getElementById("email").value
+      const special_reqs = document.getElementById("specialreqs").value
+      const tourid = document.getElementById("tourid").value
+     
+
+      bodyFormData.append('name', name);
+      bodyFormData.append('phone', phone);
+      bodyFormData.append('email', email);
+      bodyFormData.append('special_reqs', special_reqs);
+      bodyFormData.append('tourid', tourid);
+      bodyFormData.append('passid',passid);
+
+      const fileInput = document.getElementById("idproof");
+      
+      if (fileInput.files && fileInput.files.length > 0) {
+    // Append the file to the FormData object if selected
+    bodyFormData.append('idproof', fileInput.files[0]);
+}
+
+
+
+
+
+      axios.post('/editpassenger', bodyFormData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+        .then(function (response) {
+          console.log(response.data)
+          if (response.status === 200) {
+            alert('Request was successful: ' + response.data.message);
+          }
+          else {
+            alert('FAILED');
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+
+        
+
+    })
+
+    addtoursubmit.addEventListener("delete", (event) => { 
+      event.preventDefault();
+
+      axios.post(`/deletetour?id=${tourid}`)
+        .then(function (response) {
+          console.log(response.data)
+          if (response.status === 200) {
+            alert('Request was successful: ' + response.data.message);
+            window.location.href = "http://localhost:8080/admin/addtour";
+          }
+          else {
+            alert('FAILED');
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+    })
+
+  </script>
+  <!-- latest jquery-->
+  <script src="/static/js/jquery-3.5.1.min.js"></script>
+  <!-- feather icon js-->
+  <script src="/static/js/icons/feather-icon/feather.min.js"></script>
+  <script src="/static/js/icons/feather-icon/feather-icon.js"></script>
+  <!-- Sidebar jquery-->
+  <script src="/static/js/sidebar-menu.js"></script>
+  <script src="/static/js/config.js"></script>
+  <!-- Bootstrap js-->
+  <script src="/static/js/bootstrap/popper.min.js"></script>
+  <script src="/static/js/bootstrap/bootstrap.min.js"></script>
+  <!-- Plugins JS start-->
+  <script src="/static/js/form-validation-custom.js"></script>
+  <!-- Plugins JS Ends-->
+  <!-- Theme js-->
+  <script src="/static/js/script.js"></script>
+  <script src="/static/js/theme-customizer/customizer.js"></script>
+  <!-- login js-->
+  <!-- Plugin used-->
+</body>
+
+</html>
