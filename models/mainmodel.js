@@ -35,10 +35,11 @@ export const InsertTour = async (
   accommodations,
   meals,
   firstaid,
-  description
+  description,
+  price
 ) => {
   const result = await pool.query(
-    "INSERT INTO tours (tourname,category,startpoint,endpoint,bannerpath,departdate,duration,accommodations,meals,firstaid,description) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+    "INSERT INTO tours (tourname,category,startpoint,endpoint,bannerpath,departdate,duration,accommodations,meals,firstaid,description,price) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
     [
       tourname,
       category,
@@ -51,6 +52,7 @@ export const InsertTour = async (
       meals,
       firstaid,
       description,
+      price
     ]
   );
   return result.query;
@@ -68,7 +70,8 @@ export const EditTour = async (
   accommodations,
   meals,
   firstaid,
-  description
+  description,
+  price
 ) => {
   const result = await pool.query(
     `UPDATE tours 
@@ -82,7 +85,9 @@ export const EditTour = async (
              accommodations = ?, 
              meals = ?, 
              firstaid = ?, 
-             description = ? 
+             description = ?,
+             price = ?
+
          WHERE id = ?`,
     [
       tourname,
@@ -96,6 +101,7 @@ export const EditTour = async (
       meals,
       firstaid,
       description,
+      price,
       id,
     ]
   );
@@ -113,7 +119,8 @@ export const EditTourNoImage = async (
     accommodations,
     meals,
     firstaid,
-    description
+    description,
+    price
   ) => {
     const result = await pool.query(
       `UPDATE tours 
@@ -126,7 +133,8 @@ export const EditTourNoImage = async (
                accommodations = ?, 
                meals = ?, 
                firstaid = ?, 
-               description = ? 
+               description = ? ,
+               price = ?
            WHERE id = ?`,
       [
         tourname,
@@ -139,6 +147,7 @@ export const EditTourNoImage = async (
         meals,
         firstaid,
         description,
+        price,
         id,
       ]
     );

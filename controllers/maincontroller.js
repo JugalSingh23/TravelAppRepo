@@ -119,7 +119,8 @@ export const PostAddTour = async (req, res) => {
             req.body.accommodations,
             req.body.meals,
             req.body.firstaid,
-            req.body.description
+            req.body.description,
+            req.body.price
         );
 
         return res.status(200).json({ status: "success", message: "Tour Added" });
@@ -130,6 +131,8 @@ export const PostAddTour = async (req, res) => {
 
 export const PostEditTour = async (req, res) => {
     //itenerary not implemented yet
+
+    console.log(`yooooo edittttt`)
     try {
         if (req.file) {
             const bannerPath = `/images/${req.file.filename}`;
@@ -150,7 +153,8 @@ export const PostEditTour = async (req, res) => {
                 req.body.accommodations,
                 req.body.meals,
                 req.body.firstaid,
-                req.body.description
+                req.body.description,
+                req.body.price
 
             );
             return res
@@ -176,6 +180,7 @@ export const PostEditTour = async (req, res) => {
                 req.body.meals,
                 req.body.firstaid,
                 req.body.description,
+                req.body.price
             );
             return res
                 .status(200)

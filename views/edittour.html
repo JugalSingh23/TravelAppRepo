@@ -79,13 +79,13 @@
         </div>
         <div class="nav-right col pull-right right-menu p-0">
           <ul class="nav-menus">
-            
 
 
 
-       
-            
-           
+
+
+
+
             <li class="onhover-dropdown p-0">
               <button class="btn btn-primary-light" type="button"><a href="/admin/logout"><i
                     data-feather="log-out"></i>Log out</a></button>
@@ -100,13 +100,13 @@
     <div class="page-body-wrapper horizontal-menu">
       <!-- Page Sidebar Start-->
       <header class="main-nav">
-      
+
         <nav>
           <div class="main-navbar">
             <div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
             <div id="mainnav">
               <ul class="nav-menu custom-scrollbar">
-                
+
                 <li class="sidebar-main-title">
                   <div>
                     <h6>Admin Panel</h6>
@@ -127,19 +127,19 @@
                 </li>
 
                 <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i
-                  data-feather="airplay"></i><span>Tour Categories</span></a>
-              <ul class="nav-submenu menu-content">
-                <li><a href="/admin/addcategory">Add Category</a></li>
-              </ul>
-            </li>
+                      data-feather="airplay"></i><span>Tour Categories</span></a>
+                  <ul class="nav-submenu menu-content">
+                    <li><a href="/admin/addcategory">Add Category</a></li>
+                  </ul>
+                </li>
 
-            <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i
-              data-feather="airplay"></i><span>Transactions</span></a>
-          <ul class="nav-submenu menu-content">
-            <li><a href="/admin/viewtransactions">View Transactions</a></li>
-          </ul>
-        </li>
-                
+                <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i
+                      data-feather="airplay"></i><span>Transactions</span></a>
+                  <ul class="nav-submenu menu-content">
+                    <li><a href="/admin/viewtransactions">View Transactions</a></li>
+                  </ul>
+                </li>
+
               </ul>
             </div>
             <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>
@@ -161,7 +161,7 @@
               </div>
               <div class="col-sm-6">
                 <!-- Bookmark Start-->
-               
+
                 <!-- Bookmark Ends-->
               </div>
             </div>
@@ -189,7 +189,7 @@
                       <div class="col-md-3">
                         <label class="form-label" for="validationCustom04">Category</label>
                         <select class="form-select" id="category" name="category" required="">
-                        
+
                         </select>
                       </div>
 
@@ -254,24 +254,28 @@
                           </select>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                           <div style="width:100%">
-                            <label class="form-label" for="validationCustom04">Description</label>
+                            <label class="form-label" for="validationCustom04">Description/label>
                               <textarea class="form-control w-100" id="description" name="description"
                                 rows="3"></textarea>
                           </div>
 
                         </div>
 
+                        <div class="col-md-3">
+                          <label class="form-label" for="validationCustom03">Price</label>
+                          <input class="form-control" id="price" name="price" placeholder="INR 200,000/-" required="">
+                        </div>
+
                         <div class="col-md-3 mb-3">
                           <label class="form-label" for="validationCustom04">Tour Banner</label>
-                          <input class="form-control" id="banner" name="banner" type="file" aria-label="file example"
-                            >
+                          <input class="form-control" id="banner" name="banner" type="file" aria-label="file example">
                         </div>
                       </div>
 
                       <button class="btn btn-primary" type="submit">Edit Tour</button>
-                      
+
                   </form>
                 </div>
               </div>
@@ -355,7 +359,7 @@
     axios.get(`/gettours?id=${tourid}`)
       .then(function (response) {
 
-console.log(response.data)
+        console.log(response.data)
         document.getElementById("tourname").value = `${response.data.tourname}`
         document.getElementById("category").value = `${response.data.category}`
         document.getElementById("startpoint").value = `${response.data.startpoint}`
@@ -366,6 +370,7 @@ console.log(response.data)
         document.getElementById("meals").value = `${response.data.meals}`
         document.getElementById("firstaid").value = `${response.data.firstaid}`
         document.getElementById("description").value = `${response.data.description}`
+        document.getElementById("price").value = `${response.data.price}`
 
       })
       .catch(function (error) {
@@ -395,6 +400,7 @@ console.log(response.data)
       const meals = document.getElementById("meals").value
       const firstaid = document.getElementById("firstaid").value
       const description = document.getElementById("description").value
+      const price = document.getElementById("price").value
 
       bodyFormData.append('id', tourid);
       bodyFormData.append('tourname', tourname);
@@ -407,6 +413,7 @@ console.log(response.data)
       bodyFormData.append('meals', meals);
       bodyFormData.append('firstaid', firstaid);
       bodyFormData.append('description', description);
+      bodyFormData.append('price', price);
       bodyFormData.append('banner', document.getElementById("banner").files[0]);
 
 
@@ -432,11 +439,11 @@ console.log(response.data)
         });
 
 
-        
+
 
     })
 
-    addtoursubmit.addEventListener("delete", (event) => { 
+    addtoursubmit.addEventListener("delete", (event) => {
       event.preventDefault();
 
       axios.post(`/deletetour?id=${tourid}`)
