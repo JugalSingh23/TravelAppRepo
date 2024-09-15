@@ -102,7 +102,7 @@ export const PostPassenger = async (req, res) => {
         return res.status(200).send(result)
     }
     catch (error) {
-        return res.json({ message: 'Error while adding passenger', error })
+        return res.status(400).json({ message: 'Error while adding passenger', error })
     }
 
 
